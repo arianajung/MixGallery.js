@@ -1,0 +1,26 @@
+{
+  "name": "js-library-jungseo7",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "html2canvas": "^1.0.0-rc.7",
+    "jquery": "^3.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csc309-fall-2020/js-library-jungseo7.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/csc309-fall-2020/js-library-jungseo7/issues"
+  },
+  "homepage": "https://github.com/csc309-fall-2020/js-library-jungseo7#readme"
+}
