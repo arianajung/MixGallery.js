@@ -9,6 +9,10 @@
         // the overall container
         const _mixGalContainer = document.createElement("div");
         _mixGalContainer.classList.add("mix-gallery");
+        let _elementCount = 0;
+        const _allOverlayElements = [];
+        let _filteredOverlayElements = [];
+        let _currOverlayElementIndex = 0;
 
         /*-----------------------------------------------------------*/
 
@@ -17,78 +21,127 @@
             // overlay when an element is clicked
             const overlay = document.createElement("div");
             overlay.id = "overlay";
-            console.log(document.body);
+
+            const prevBtn = document.createElement("button");
+            const prevIcon = document.createElement("img");
+            prevIcon.classList.add("prev-control-icon");
+            prevIcon.src = "./static/left-chevron.png";
+            prevBtn.appendChild(prevIcon);
+
+            const nextBtn = document.createElement("button");
+            const nextIcon = document.createElement("img");
+            nextIcon.classList.add("next-control-icon");
+            nextIcon.src = "./static/right-chevron.png";
+            nextBtn.appendChild(nextIcon);
+
+            overlay.appendChild(prevBtn);
+            overlay.appendChild(nextBtn);
+            _addPrevControlAction(prevBtn);
+            _addNextControlAction(nextBtn);
             document.body.prepend(overlay);
         }
 
+        function _addPrevControlAction(prevBtn) {
+            prevBtn.addEventListener("click", (e) => {
+                _currOverlayElementIndex -= 1;
+                if (_currOverlayElementIndex === -1) {
+                    _currOverlayElementIndex =
+                        _filteredOverlayElements.length - 1;
+                }
+                const prevElement = _filteredOverlayElements.filter((el) => {
+                    return el.id == _currOverlayElementIndex;
+                });
+                _displayOverlayElement(overlay, prevElement[0]);
+            });
+        }
+
+        function _addNextControlAction(nextBtn) {
+            nextBtn.addEventListener("click", (e) => {
+                _currOverlayElementIndex += 1;
+                if (
+                    _currOverlayElementIndex === _filteredOverlayElements.length
+                ) {
+                    _currOverlayElementIndex = 0;
+                }
+                const nextElement = _filteredOverlayElements.filter((el) => {
+                    return el.id == _currOverlayElementIndex;
+                });
+                _displayOverlayElement(overlay, nextElement[0]);
+            });
+        }
+
+        function _createOverlayElements(el, newEl, overlay) {
+            // element
+            let enlargedEl;
+            if (el.type === "link") {
+                enlargedEl = document.createElement("iframe");
+            } else {
+                enlargedEl = document.createElement(el.type);
+            }
+            if (el.type === "video" || el.type == "audio") {
+                enlargedEl.controls = true;
+            }
+            enlargedEl.src = el.src;
+
+            // container surrounding the main element
+            const elContainer = document.createElement("div");
+            elContainer.classList.add("overlay-element");
+            elContainer.appendChild(enlargedEl);
+
+            // title
+            const overlayTitle = document.createElement("h1");
+            overlayTitle.classList.add("overlay-title");
+            overlayTitle.innerHTML = el.title + "  ";
+
+            // Link
+            if (el.type == "link") {
+                const link = document.createElement("a");
+                link.href = el.src;
+                const icon = document.createElement("img");
+                icon.classList.add("external-link-icon");
+                icon.src = "./static/external-link-symbol.png";
+                link.appendChild(icon);
+                // link.innerHTML = "Click here to access the full website.";
+                overlayTitle.appendChild(link);
+            }
+
+            const divider = document.createElement("hr");
+
+            // caption
+            const overlayCaption = document.createElement("h5");
+            // overlayCaption.classList.add("overlay-caption");
+            overlayCaption.innerHTML = el.caption;
+
+            const overlayCaptionContainer = document.createElement("div");
+            overlayCaptionContainer.classList.add("overlay-caption");
+            overlayCaptionContainer.appendChild(overlayCaption);
+
+            // container for title and caption (and link)
+            const overlayText = document.createElement("div");
+            overlayText.classList.add("overlay-textContainer");
+            overlayText.appendChild(overlayTitle);
+            overlayText.appendChild(divider);
+            overlayText.appendChild(overlayCaptionContainer);
+
+            // container for element and textContainer
+            const elTextContainer = document.createElement("div");
+            elTextContainer.id = _elementCount;
+            elTextContainer.classList.add("overlay-elTextContainer");
+            elTextContainer.appendChild(elContainer);
+            elTextContainer.appendChild(overlayText);
+
+            _addOverlayAction(elTextContainer, newEl, overlay);
+            _allOverlayElements.push(elTextContainer);
+            _elementCount += 1;
+        }
+
         // PRIVATE: event listeners for when an element is clicked and when exit
-        function _addOverlayAction(el, newEl, overlay) {
+        function _addOverlayAction(elTextContainer, newEl, overlay) {
             // onClick event
             newEl.addEventListener("click", (e) => {
                 overlay.classList.add("active");
-
-                // element
-                let enlargedEl;
-                if (el.type === "link") {
-                    enlargedEl = document.createElement("iframe");
-                } else {
-                    enlargedEl = document.createElement(el.type);
-                }
-                if (el.type === "video" || el.type == "audio") {
-                    enlargedEl.controls = true;
-                }
-                enlargedEl.src = el.src;
-
-                // container surrounding the main element
-                const elContainer = document.createElement("div");
-                elContainer.classList.add("overlay-element");
-                elContainer.appendChild(enlargedEl);
-
-                // title
-                const overlayTitle = document.createElement("h1");
-                overlayTitle.classList.add("overlay-title");
-                overlayTitle.innerHTML = el.title + "  ";
-
-                // Link
-                if (el.type == "link") {
-                    const link = document.createElement("a");
-                    link.href = el.src;
-                    const icon = document.createElement("img");
-                    icon.classList.add("external-link-icon");
-                    icon.src = "./static/external-link-symbol.png";
-                    link.appendChild(icon);
-                    // link.innerHTML = "Click here to access the full website.";
-                    overlayTitle.appendChild(link);
-                }
-
-                const divider = document.createElement("hr");
-
-                // caption
-                const overlayCaption = document.createElement("h5");
-                // overlayCaption.classList.add("overlay-caption");
-                overlayCaption.innerHTML = el.caption;
-
-                const overlayCaptionContainer = document.createElement("div");
-                overlayCaptionContainer.classList.add("overlay-caption");
-                overlayCaptionContainer.appendChild(overlayCaption);
-
-                // container for title and caption (and link)
-                const overlayText = document.createElement("div");
-                overlayText.classList.add("overlay-textContainer");
-                overlayText.appendChild(overlayTitle);
-                overlayText.appendChild(divider);
-                overlayText.appendChild(overlayCaptionContainer);
-
-                // container for element and textContainer
-                const elTextContainer = document.createElement("div");
-                elTextContainer.classList.add("overlay-elTextContainer");
-                elTextContainer.appendChild(elContainer);
-                elTextContainer.appendChild(overlayText);
-
-                while (overlay.firstChild) {
-                    overlay.removeChild(overlay.firstChild);
-                }
-                overlay.appendChild(elTextContainer);
+                _currOverlayElementIndex = parseInt(elTextContainer.id);
+                _displayOverlayElement(overlay, elTextContainer);
             });
 
             // Click outside of the element
@@ -97,6 +150,13 @@
                     overlay.classList.remove("active");
                 }
             });
+        }
+
+        function _displayOverlayElement(overlay, elTextContainer) {
+            while (overlay.firstChild.nextSibling.nextSibling) {
+                overlay.removeChild(overlay.firstChild.nextSibling.nextSibling);
+            }
+            overlay.appendChild(elTextContainer);
         }
 
         // PRIVATE: create all elements and populate in _self.elements
@@ -125,7 +185,7 @@
                     newEl = document.createElement(el.type);
                     newEl.src = el.src;
                 }
-                _addOverlayAction(el, newEl, overlay);
+                _createOverlayElements(el, newEl, overlay);
                 newElContainer.appendChild(newEl);
 
                 // title
@@ -147,6 +207,7 @@
 
                 _allElements.push(galleryItem);
             });
+            _filteredOverlayElements = _allOverlayElements;
         }
 
         // PRIVATE: filter elements displayed based on the nav button clicked
@@ -154,18 +215,39 @@
             btn.addEventListener("click", (e) => {
                 _destroyAllElements();
                 _removeButtonActiveClass(navMenu);
+
+                // filter _allElements array
                 btn.classList.add("button-active");
                 const filteredElements = _allElements.filter((el) => {
                     return el.firstChild.firstChild.tagName === elType;
                 });
                 _displayElements(filteredElements);
+
+                // filter _allOverlayElements array
+                const filteredOverlayElements = _allOverlayElements.filter(
+                    (el) => {
+                        return el.firstChild.firstChild.tagName === elType;
+                    }
+                );
+                for (let i = 0; i < filteredOverlayElements.length; i++) {
+                    filteredOverlayElements[i].setAttribute("id", i);
+                }
+                _changeElementIndex(filteredOverlayElements);
+                _filteredOverlayElements = filteredOverlayElements;
             });
+        }
+
+        function _changeElementIndex(overlayElementsArr) {
+            for (let i = 0; i < overlayElementsArr.length; i++) {
+                overlayElementsArr[i].setAttribute("id", i);
+            }
         }
 
         // PRIVATE: create navigation bar at the top
         function _createNavmenu() {
             const all = document.createElement("button");
             all.innerHTML = "All";
+            all.classList.add("button-active"); // all is active by default
 
             const photo = document.createElement("button");
             photo.innerHTML = "Photo";
@@ -193,6 +275,8 @@
                 all.classList.add("button-active");
                 _destroyAllElements();
                 _displayElements(_allElements);
+                _changeElementIndex(_allOverlayElements);
+                _filteredOverlayElements = _allOverlayElements;
             });
             _applyFilter(photo, "IMG", navMenu);
             _applyFilter(video, "VIDEO", navMenu);

@@ -209,6 +209,53 @@ iframe {
     align-items: center;
 }
 
+#overlay button {
+    background-color: transparent;
+    border: none;
+    opacity: 50%;
+    transition: 0.2s ease-in-out;
+}
+
+#overlay button:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+#overlay button:focus {
+    outline: none;
+}
+
+#overlay .prev-control-icon {
+    position: absolute;
+    top: 48vh;
+    left: 5vw;
+}
+
+#overlay .next-control-icon {
+    position: absolute;
+    top: 48vh;
+    left: 91vw;
+}
+
+@media screen and (max-width: 1130px) {
+    #overlay .prev-control-icon {
+        position: absolute;
+        top: 10vh;
+        left: 30vw;
+    }
+    #overlay .next-control-icon {
+        position: absolute;
+        top: 10vh;
+        left: 65vw;
+    }
+}
+
+#overlay .prev-control-icon,
+#overlay .next-control-icon {
+    width: 50px;
+    outline: none;
+}
+
 .overlay-elTextContainer {
     display: grid;
     grid-template-columns: 1fr 0.4fr 1fr;
