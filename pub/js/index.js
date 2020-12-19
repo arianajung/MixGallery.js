@@ -104,7 +104,7 @@ const elements = [
         priority: 2,
     },
     {
-        src: "http://jquery.com",
+        src: "https://jquery.com",
         type: "link",
         title: "jQuery!",
         caption: "This is a dummy text.",
@@ -119,7 +119,7 @@ const elements = [
     },
 
     {
-        src: "http://www.shainblumphoto.com/",
+        src: "https://www.shainblumphoto.com/",
         type: "link",
         title: "Michael Shainblum Photography",
         caption:
