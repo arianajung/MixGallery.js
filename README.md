@@ -2,6 +2,7 @@
 # MixGallery.js
 
 A simple and lightweight Javascript library where you can display all your multimedia in one compact gallery.
+
 See the [project website](http://mixgallery.herokuapp.com/) to view a demo and documentation.
 
 ## Getting Started
