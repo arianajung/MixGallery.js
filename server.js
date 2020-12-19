@@ -14,7 +14,7 @@ const path = require("path");
 app.use(express.static(path.join(__dirname, "/pub")));
 
 app.get("/", (req, res) => {
-    res.redirect("example.html");
+    res.redirect("index.html");
 });
 
 // will use an 'environmental variable', process.env.PORT, for deployment.
