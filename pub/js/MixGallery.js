@@ -89,9 +89,11 @@
             elContainer.appendChild(enlargedEl);
 
             // title
+            const overlayTitleContainer = document.createElement("div");
+            overlayTitleContainer.classList.add("overlay-title");
             const overlayTitle = document.createElement("h1");
-            overlayTitle.classList.add("overlay-title");
             overlayTitle.innerHTML = el.title + "  ";
+            overlayTitleContainer.appendChild(overlayTitle);
 
             // Link
             if (el.type == "link") {
@@ -119,7 +121,7 @@
             // container for title and caption (and link)
             const overlayText = document.createElement("div");
             overlayText.classList.add("overlay-textContainer");
-            overlayText.appendChild(overlayTitle);
+            overlayText.appendChild(overlayTitleContainer);
             overlayText.appendChild(divider);
             overlayText.appendChild(overlayCaptionContainer);
 
@@ -322,6 +324,19 @@
             _createNavmenu();
             _createElements(elements);
             _displayElements(_allElements);
+        };
+
+        _self.destroy = () => {
+            _mixGalContainer.removeChild(_mixGalContainer.firstChild);
+            _mixGalContainer.removeChild(_mixGalContainer.firstChild);
+            const parent = _mixGalContainer.parentElement;
+            parent.removeChild(_mixGalContainer);
+            document.removeChild(document.getElementById("#overlay"));
+            _allElements = [];
+            _elementCount = 0;
+            _allOverlayElements = [];
+            _filteredOverlayElements = [];
+            _currOverlayElementIndex = 0;
         };
 
         return _self;

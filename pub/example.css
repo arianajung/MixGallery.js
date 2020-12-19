@@ -4,16 +4,105 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #showcase {
-    background-image: url("./static/showcase-img.jpg");
+    /* background-image: linear-gradient(to bottom, #cd9cf2 0%, #f6f3ff 100%); */
+    background-image: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
     background-size: cover;
-    background-position: 0% 35%;
     height: 800px;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttons {
+    padding-top: 50px;
+}
+
+.get-started-button,
+.api-button {
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
+    color: rgb(155, 155, 155);
+}
+
+.mix {
+    color: #fbc0c2;
+}
+
+.gallery-text {
+    color: #ccdbfd;
+}
+
+.get-started-button,
+.api-button {
+    display: inline-block;
+    padding: 0.35em 1.5em;
+    border: 0.1em solid #ffffff;
+    margin: 0 0.6em 0.6em 0;
+    border-radius: 0.12em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    color: #ffffff;
+    text-align: center;
+    transition: all 0.2s;
+    height: 40px;
+    font-size: 1em;
+}
+
+.get-started-button:hover {
+    color: #49417a;
+    border-color: white;
+    cursor: pointer;
+    background-color: #93a9df;
+}
+
+.api-button:hover {
+    color: #49417a;
+    border-color: white;
+    cursor: pointer;
+    background-color: #f68084;
+}
+
+.get-started-button:active,
+.api-button:active {
+    color: #bbbbbb;
+    border-color: #bbbbbb;
+    outline: none;
+}
+
+.get-started-button:focus,
+.api-button:focus {
+    outline: none;
+}
+
+@media all and (max-width: 30em) {
+    a.button2 {
+        display: block;
+        margin: 0.4em auto;
+    }
+}
+
+.icons {
+    width: 300px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.icon {
+    height: 30px;
 }
 
 .content {
@@ -22,7 +111,6 @@ body {
     align-items: center;
     justify-content: center;
     z-index: 9999;
-    height: 100%;
 }
 
 h1 {
@@ -40,23 +128,157 @@ h3 {
     color: white;
 }
 
+#overview {
+}
+
 #gallery {
-    height: 900px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgb(231, 231, 231);
+    width: 50%;
+    margin-bottom: 100px;
+}
+
+.overview-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 100px;
+}
+
+.overview-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.features {
+    margin-bottom: 80px;
+}
+
+@media screen and (max-width: 932px) {
+    .features-list {
+        grid-template-columns: repeat(1, 1fr);
+        column-gap: 70px;
+        row-gap: 40px;
+    }
+}
+
+.section-title {
+    margin-bottom: 20px;
+    color: black;
+}
+
+.features-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 70px;
+    row-gap: 40px;
+}
+
+.feature-element {
+    width: 400px;
+}
+
+.code {
+    width: 100px;
+}
+
+.section {
+    width: 46%;
+    margin-bottom: 20px;
+}
+
+#overview hr {
+    width: 70%;
+    height: 3px;
+    background-color: #f1f1f1;
+    border: none;
+    margin-bottom: 80px;
 }
 
 h2 {
-    margin-bottom: 1%;
+    font-size: 1.8em;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-weight: 100;
+    color: white;
+    font-size: 1.2em;
+}
+
+.title {
+    font-size: 1.4em;
+    font-weight: 500;
+    color: black;
+}
+
+.description {
+    font-weight: 300;
+    color: black;
+    font-size: 1.1em;
+    padding-top: 4px;
+}
+
+.subsection {
+    padding-bottom: 40px;
+}
+
+.last-section {
+    width: 46%;
+}
+
+li {
+    margin-left: 40px;
+}
+
+b {
+    font-weight: 500;
 }
 
 #footer {
-    height: 100px;
-    background-color: gray;
+    height: 200px;
+    background-color: rgb(243, 243, 243);
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#footer #footer-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#footer #footer-text h4 {
+    font-weight: 400;
+    padding: 5px;
+}
+
+#footer .footer-link {
+    text-decoration: underline;
+    color: black;
+}
+
+#footer a {
+    text-decoration: none;
+    color: #f68084;
+}
+
+.github {
+    text-decoration: none;
+    color: #f68084;
+}
+
+a {
+    text-decoration: none;
+    color: white;
 }

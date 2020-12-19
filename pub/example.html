@@ -5,24 +5,160 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="example.css">
     <link rel="stylesheet" type="text/css" href="MixGallery.css">
+    <link href="prism.css" rel="stylesheet" />
     <script defer type="text/javascript" src="js/MixGallery.js"></script>
     <script defer type="text/javascript" src="js/example.js"></script>
-    <title>MixGallery Testing</title>
+    <script defer type="text/javascript" src="js/prism.js"></script>
+    <title>MixGallery.js</title>
 </head>
 <body>
     <section id="showcase">
         <div class="content">
-            <h1>Ariana Jung</h1>
-            <h3>A landscape photographer and a world-wide traveller</h3>
+            <div class="icons">
+                <img class="icon" src="static/audio.png" alt="audio-icon"/>
+                <img class="icon" src="static/photo.png" alt="audio-icon"/>
+                <img class="icon" src="static/video.png" alt="audio-icon"/>
+                <img class="icon" src="static/link.png" alt="audio-icon"/>
+            </div>
+            <h1><span class="mix">Mix</span><span class="gallery-text">Gallery</span>.js</h1>
+            <h3>Simple and lightweight Javascript library</h3>
+            <h3>where you can display all your multimedia in one compact gallery.</h3>
+        </div>
+        <div class="buttons">
+            <button class="get-started-button"><a href="#get-started-section">Get Started</a></button>
+            <button class="api-button"><a href="#api-section">API</a></button>
         </div>
     </section>
 
-    <section id="gallery">
-        <h2>My Work</h2>
+    <section id="overview">
+        <div class="overview-container">
+            <div class="overview-text">
+                <h2>Demo</h2>
+                <h3 class="description">Display your multimedia in one simple gallery.</h3>
+                <h3 class="description">Photo, audio, audio, link - just about everything you need.</h3>
+            </div>
+            <div id="gallery"></div>
+            <hr>
+            <div class="features">
+                <h2 class="section-title">Features</h2>
+                <div class="features-list">
+                    <div class="feature-element">
+                        <h3 class="title">Display various multimedia</h3>
+                        <h4 class="description">Mix up the elements you wish to display ranging from photo, video, audio, and link. You are not limited to just one type!</h4>
+                    </div>
+                    <div class="feature-element">
+                        <h3 class="title">Title and Caption</h3>
+                        <h4 class="description">Simply click on each media element to enter an enlarged view of the media and see their title and caption. Make the caption as lengthy as you want!</h4>
+                    </div>
+                    <div class="feature-element">
+                        <h3 class="title">Filter</h3>
+                        <h4 class="description">Filter the elements in the gallery by clicking on the type of media at the top of the gallery. </h4>
+                    </div>
+                    <div class="feature-element">
+                        <h3 class="title">Navigation</h3>
+                        <h4 class="description">In the enlarged view, click on the arrows to nagivate to the previous and next media element.</h4>
+                    </div>
+                    <div class="feature-element">
+                        <h3 class="title">Link</h3>
+                        <h4 class="description">View the iframe of a link element in the enlarged view. Click on the link icon beside the title to be directed to the full website. </h4>
+                    </div>
+                    <div class="feature-element">
+                        <h3 class="title">Responsive Design</h3>
+                        <h4 class="description">A responsive design for various browser sizes.</h4>
+                    </div>
+                </div>
+            </div>
+            <hr id="get-started-section">
+            <div class="section">
+                <h2 class="section-title">Get Started</h2>
+                <div class="subsection">
+                    <h3 class="title">Download</h3>
+                    <h4 class="description">Download the javascript and css files from <a class="github" href="https://github.com/csc309-fall-2020/js-library-jungseo7">GitHub.</a></h4>
+                </div>
+                <div class="subsection">
+                    <h3 class="title">Initialization</h3>
+                    <h4 class="description">Link the .css file into the <code class="language-html">&lt;head&gt;</code> section of your HTML document:</h4>
+                    <pre><code class="language-html">&lt;link rel="stylesheet" type="text/css" href="MixGallery.css"&gt;&lt;/link&gt;</code></pre>
+                    <br>
+                    <h4 class="description">Add the .js file into the <code class="language-html">&lt;body&gt;</code> section of your HTML document:</h4>
+                    <pre><code class="language-html">&lt;script type="text/javascript" src="js/MixGallery.js"&gt;&lt;/script&gt;</code></pre>
+                    <br>
+                    <h4 class="description">Create an empty <code class="language-html">&lt;div&gt;</code> element in the DOM and specify its <code>id</code>:</h4>
+                    <pre><code class="language-html">&lt;div id="gallery"&gt&lt;/div&gt;</code></pre>
+                    <br>
+                    <h4 class="description">In your .js file, create an array of objects where each object represents each media element in the gallery.</h4>
+                    <pre><code class="language-javascript">const elements = [
+    {
+        src: "./image.jpg",
+        type: "img",
+        title: "A title.",
+        caption: "This is an example of a caption.",
+        priority: 2,
+    },
+    {
+        src: "./video.mp4",
+        type: "video",
+        title: "Another title.",
+        caption: "Another caption!",
+        priority: 1,
+    }
+]</code></pre>
+                    <br>
+                    <h4 class="description">Lastly, create a new instance of MixGallery and pass in the <code class="language-html">&lt;div&gt;</code> that was created earlier. Call  <code class="language-javascript">render()</code> to invoke MixGallery.</h4>
+                    <pre><code class="language-javascript">const mixgallery = MixGallery(document.querySelector("#gallery"), elements);
+mixgallery.render();</code></pre>
+                    <br>
+                </div>
+            </div>
+
+        <hr id="api-section">
+        <div class="last-section">
+            <h2 class="section-title">API</h2>
+            <div class="subsection">
+                <h3 class="title">Object Specificiation</h3>
+                <h4 class="description">An object representing a single media element should be specified as the following:</h4>
+                <pre><code class="language-javascript">{
+    src: "./image.jpg", // image source
+    type: "img", // type of the media element
+    title: "A title.", // title
+    caption: "This is an example of a caption.", // caption
+    priority: 2, // importance level of this media element
+}</code></pre>
+            <br>
+            <h4 class="description">Description of each attribute:
+                <ul>
+                    <li><b>src:</b> source of the element</li>
+                    <li><b>type:</b> type of the element; choose from photo, video, audio, or link</li>
+                    <li><b>title:</b> title for the element</li>
+                    <li><b>caption:</b> caption for the element</li>
+                    <li><b>priority:</b> value of 1, 2, or 3 indicating the importance of this element (specifies size for the element where 1 gives the smallest size and 3 the biggest size)</li>
+                </ul>
+            </h4>
+            </div>
+            <br>
+            <h3 class="title">Public Methods</h3>
+            <h4 class="description">A few simple methods can be called on a MixGallery instance:</h4>
+            <pre><code class="language-javascript">const mixgallery = MixGallery( ... );</code></pre>
+            <br>
+            <div class="last-subsection">
+                <h3 class="title">.render()</h3>
+                <h4 class="description">Triggers the initialization of MixGallery instance.</a></h4>
+                <pre><code class="language-javascript">mixgallery.render()</code></pre>
+                <br>
+                <h3 class="title">.destroy()</h3>
+                <h4 class="description">Destroys the entire MixGallery instance.</a></h4>
+                <pre><code class="language-javascript">mixgallery.destroy()</code></pre>
+            </div>
+        </div>
     </section>
 
     <section id="footer">
-        <h4>Copyright © Ariana Jung</h4>
+        <div id="footer-text">
+            <h4>MixGallery.js · Created by Ariana Jung · <a href="mailto: syjung0904@gmail.com">syjung0904@gmail.com</a></h4>
+            <h4><a class="footer-link" href="https://github.com/csc309-fall-2020/js-library-jungseo7">GitHub</a> · 
+                <a class="footer-link" href="#get-started-section">Get Started</a> · 
+                <a class="footer-link" href="#api-section">API</a></h4>
+        </div>
     </section>
 </body>
 </html>
