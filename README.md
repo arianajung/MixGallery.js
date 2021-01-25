@@ -1,4 +1,3 @@
-# js-library-jungseo7
 # MixGallery.js
 
 A simple and lightweight Javascript library where you can display all your multimedia in one compact gallery.
